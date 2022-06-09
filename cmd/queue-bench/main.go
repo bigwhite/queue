@@ -13,7 +13,6 @@ const (
 		producerCount  = 100000
 		enqueCountPerP = 100
 		consumerCount  = 10
-		dequeCountPerC = 100
 	*/
 	producerCount  = 100
 	enqueCountPerP = 1000
@@ -26,7 +25,7 @@ func main() {
 	var wgc sync.WaitGroup
 	var start = make(chan struct{})
 	wgp.Add(producerCount)
-	wgc.Add(10)
+	wgc.Add(consumerCount)
 
 	fmt.Println("create Ps and Cs...")
 
@@ -61,4 +60,5 @@ func main() {
 	}()
 	wgc.Wait()
 	fmt.Printf("consumer use %d milliseconds\n", time.Since(t1).Milliseconds())
+	time.Sleep(1 * time.Second)
 }
